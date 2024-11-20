@@ -209,20 +209,30 @@ return {
     },
   },
 
-  -- dashboard
+-- dashboard
   {
-    "nvimdev/dashboard-nvim",
-    event = "VimEnter",
-    opts = function(_, opts)
-      local logo = [[██████╗ ██╗████████╗██╗   ██╗ █████╗
-  ██╔══██╗██║╚══██╔══╝╚██╗ ██╔╝██╔══██╗
-  ██║  ██║██║   ██║    ╚████╔╝ ███████║
-  ██║  ██║██║   ██║     ╚██╔╝  ██╔══██║
-  ██████╔╝██║   ██║      ██║   ██║  ██║
-  ╚═════╝ ╚═╝   ╚═╝      ╚═╝   ╚═╝  ╚═╝]]
-      logo = string.rep("\n ", 7) .. logo .. string.rep("\n ", 2)
-      opts.config.header = vim.split(logo, "\n")
-    end
+    'nvimdev/dashboard-nvim',
+    event = 'VimEnter',
+    config = function()
+      require('dashboard').setup({
+        header = function()
+          vim.g.dashboard_default_executive = 'telescope'  -- Pilih executive yang Anda inginkan
+          local logo = [[
+          ██████╗ ██╗████████╗██╗   ██╗ █████╗
+          ██╔══██╗██║╚══██╔══╝╚██╗ ██╔╝██╔══██╗
+          ██║  ██║██║   ██║    ╚████╔╝ ███████║
+          ██║  ██║██║   ██║     ╚██╔╝  ██╔══██║
+          ██████╔╝██║   ██║      ██║   ██║  ██║
+          ╚═════╝ ╚═╝   ╚═╝      ╚═╝   ╚═╝  ╚═╝
+          ]]
+          -- Menambahkan padding pada logo dan memecahnya ke dalam baris
+          logo = string.rep("\n ", 7) .. logo .. string.rep("\n ", 2)
+          return vim.split(logo, "\n")
+        end,
+        -- Konfigurasi lainnya untuk dashboard
+      })
+    end,
+  dependencies = { {'nvim-tree/nvim-web-devicons'}},
   },
 
   {
